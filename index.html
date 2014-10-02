@@ -26,7 +26,18 @@
 			var canGoEast = true;
 			var canGoWest = true;
 			
+			//Check if a player has visited a room
+			var room1_2 = false;
+			var room2_1 = false;
+			var room2_2 = false;
+			var room2_3 = false;
+			var room3_2 = false;
+			
+			//Player score
+			var score = 0;
+			
 			function goDirection(goDirection){
+				//finds what direction the player went and changes their room coordinates accordingly
 				if (goDirection === "north") {
 					northSouth = northSouth - 1;
 					rooms();
@@ -44,7 +55,7 @@
 								rooms();
 							} else {
 								//Display this message if the game is broken somehow
-								document.getElementById("taMain").value = "How'd you do that??? (You broke free, but you broke the game.)"
+								document.getElementById("taMain").value = "How'd you do that??? (You broke free, but you broke the game.)";
 							}
 						}
 					}
@@ -59,41 +70,59 @@
 				var message = "";
 				if (eastWest === 1) {
 					if (northSouth === 2){
-						//room to the west of the center room
+						//room to the west of the center room (room1_2)
 						message = "You stand in an empty room with a door to the east.";
 						canGoNorth = false;
 						canGoSouth = false;
 						canGoWest = false;
 						canGoEast = true;
+						if (!room1_2) {
+							room1_2 = true;
+							score += 5
+						}
 					} else {
+						//Display this message if the game is broken somehow
 						message = "You float inside a wall. You broke it!";
 					}
 				} else {
 					if (eastWest === 2) {
 						if (northSouth === 1) {
-							//room to the north of the center room
+							//room to the north of the center room (room2_1)
 							message = "You stand in a room with mattresses piled up against the walls with a door to the south.";
 							canGoNorth = false;
 							canGoSouth = true;
 							canGoWest = false;
 							canGoEast = false;
+							if (!room2_1) {
+								room2_1 = true;
+								score += 5
+							}
 						} else {
 							if (northSouth === 2) {
-								//center room
+								//center room (room2_2)
 								message = "You stand in a room with doors on all sides.";
 								canGoNorth = true;
 								canGoSouth = true;
 								canGoWest = true;
 								canGoEast = true;
+								if (!room2_2) {
+									room2_2 = true;
+									score += 5;
+								}
 							} else {
 								if (northSouth === 3) {
-									//room to the south of the center room
+									//room to the south of the center room (room2_3)
 									message = "You stand in a room with a door to the north.";
 									canGoNorth = true;
 									canGoSouth = false;
 									canGoWest = false;
 									canGoEast = false;
+									if (!room2_3) {
+										room2_3 = true;
+										score += 5;
+									}
 								} else {
+									//Display this message if the game is broken somehow
 									message = "You float inside a wall. You broke it!";
 								}
 							}
@@ -101,22 +130,31 @@
 					} else {
 						if (eastWest === 3) {
 							if (northSouth === 2) {
-								//room to the east of the center room
+								//room to the east of the center room (room3_2)
 								message = "You stand in a room with a door to the west.";
 								canGoNorth = false;
 								canGoSouth = false;
 								canGoWest = true;
 								canGoEast = false;
+								if (!room3_2){
+									room3_2 = true;
+									score += 5;
+								}
 							} else {
+								//Display this message if the game is broken somehow
 								message = "You float inside a wall. You broke it!";
 							}
 						}
 					}
 				}
+				//Adds the text from the room to the message box
 				document.getElementById("taMain").value = message + "\n\n" + document.getElementById("taMain").value;
+				//Changes the score
+				document.getElementById("scoreBox").value = score;
 			}
 			
 			function start() {
+				//initializes the game
 				rooms();
 				document.getElementById("btnStart").disabled = true;
 				document.getElementById("btnEast").disabled = !canGoEast;
@@ -162,6 +200,8 @@
 			onclick="start();"
 			id="btnStart" />
 		<br>
+		Score:
+		<textarea rows="1" cols="2" id="scoreBox">0</textarea>
 		<br>
 		<br>
 		<a href="mailto:Joseph.Pupel1@marist.edu">
