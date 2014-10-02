@@ -40,18 +40,22 @@
 				//finds what direction the player went and changes their room coordinates accordingly
 				if (goDirection === "north") {
 					northSouth = northSouth - 1;
+					goDirection = "You went north."
 					rooms();
 				} else {
 					if (goDirection === "east") {
 						eastWest = eastWest + 1;
+						goDirection = "You went east."
 						rooms();
 					} else {
 						if (goDirection === "south") {
 							northSouth = northSouth + 1;
+							goDirection = "You went south."
 							rooms();
 						} else {
 							if (goDirection === "west") {
 								eastWest = eastWest - 1;
+								goDirection = "You went west."
 								rooms();
 							} else {
 								//Display this message if the game is broken somehow
@@ -60,6 +64,7 @@
 						}
 					}
 				}
+				document.getElementById("taMain").value = goDirection + "\n" + document.getElementById("taMain").value;
 				document.getElementById("btnEast").disabled = !canGoEast;
 				document.getElementById("btnNorth").disabled = !canGoNorth;
 				document.getElementById("btnSouth").disabled = !canGoSouth;
