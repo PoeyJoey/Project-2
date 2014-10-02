@@ -50,12 +50,16 @@
 					}
 				}
 				document.getElementById("btnEast").disabled = !canGoEast;
+				document.getElementById("btnNorth").disabled = !canGoNorth;
+				document.getElementById("btnSouth").disabled = !canGoSouth;
+				document.getElementById("btnWest").disabled = !canGoWest;
 			}
 			
 			function rooms() {
 				var message = "";
 				if (eastWest === 1) {
 					if (northSouth === 2){
+						//room to the west of the center room
 						message = "You stand in an empty room with a door to the east.";
 						canGoNorth = false;
 						canGoSouth = false;
@@ -67,13 +71,15 @@
 				} else {
 					if (eastWest === 2) {
 						if (northSouth === 1) {
-							message = "You stand in a room with matresses piled up against the walls with a door to the south.";
+							//room to the north of the center room
+							message = "You stand in a room with mattresses piled up against the walls with a door to the south.";
 							canGoNorth = false;
 							canGoSouth = true;
 							canGoWest = false;
 							canGoEast = false;
 						} else {
 							if (northSouth === 2) {
+								//center room
 								message = "You stand in a room with doors on all sides.";
 								canGoNorth = true;
 								canGoSouth = true;
@@ -81,6 +87,7 @@
 								canGoEast = true;
 							} else {
 								if (northSouth === 3) {
+									//room to the south of the center room
 									message = "You stand in a room with a door to the north.";
 									canGoNorth = true;
 									canGoSouth = false;
@@ -94,6 +101,7 @@
 					} else {
 						if (eastWest === 3) {
 							if (northSouth === 2) {
+								//room to the east of the center room
 								message = "You stand in a room with a door to the west.";
 								canGoNorth = false;
 								canGoSouth = false;
@@ -105,7 +113,16 @@
 						}
 					}
 				}
-				document.getElementById("taMain").value += message;
+				document.getElementById("taMain").value = message + "\n\n" + document.getElementById("taMain").value;
+			}
+			
+			function start() {
+				rooms();
+				document.getElementById("btnStart").disabled = true;
+				document.getElementById("btnEast").disabled = !canGoEast;
+				document.getElementById("btnNorth").disabled = !canGoNorth;
+				document.getElementById("btnSouth").disabled = !canGoSouth;
+				document.getElementById("btnWest").disabled = !canGoWest;
 			}
 		</script>
 	</head>
@@ -115,22 +132,35 @@
 		</h2>
 		<textarea rows="10" cols="40" id="taMain"></textarea>
 		<br>
-		<input	type="button"
-				value="North"
-				onclick="goDirection('north');"
-				id="btnNorth" />
-		<input	type="button"
-				value="East"
-				onclick="goDirection('east');"
-				id="btnEast" />
-		<input	type="button"
-				value="South"
-				onclick="goDirection('south');"
-				id="btnSouth" />
-		<input	type="button"
-				value="West"
-				onclick="goDirection('west');"
-				id="btnWest" />
+		<input
+			type="button"
+			value="North"
+			onclick="goDirection('north');"
+			id="btnNorth"
+			disabled />
+		<input
+			type="button"
+			value="East"
+			onclick="goDirection('east');"
+			id="btnEast"
+			disabled />
+		<input
+			type="button"
+			value="South"
+			onclick="goDirection('south');"
+			id="btnSouth"
+			disabled />
+		<input
+			type="button"
+			value="West"
+			onclick="goDirection('west');"
+			id="btnWest"
+			disabled />
+		<input
+			type="button"
+			value="Start"
+			onclick="start();"
+			id="btnStart" />
 		<br>
 		<br>
 		<br>
