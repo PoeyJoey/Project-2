@@ -39,7 +39,7 @@
 			
 			function goDirection(goDirection){
 				//finds what direction the player went and changes their room coordinates accordingly
-				if (goDirection === "north") {
+				/*if (goDirection === "north") {
 					northSouth = northSouth - 1;
 					goDirection = "You went north.";
 					rooms();
@@ -64,7 +64,7 @@
 							}
 						}
 					}
-				}
+				}*/
 				switch(goDirection) {
 					case "north":
 					case "North":
@@ -98,15 +98,17 @@
 						goDirection = "You went west.";
 						rooms();
 						break;
-					case default:
-						//Display this message if the game is broken somehow
-						document.getElementById("taMain").value = "That's not a valid direction!";
+					default:
+						//Display this message if the user typed incorrectly
 						if (error === 5) {
-							
+							goDirection = "Bro! Do you even type?";
+						} else {
+							goDirection = "That's not a valid direction!";
+							error += 1;
 						}
 						break;
 				}
-				document.getElementById("taMain").value = goDirection + "\n" + document.getElementById("taMain").value;
+				document.getElementById("taMain").value = goDirection + "\n\n" + document.getElementById("taMain").value;
 				document.getElementById("btnEast").disabled = !canGoEast;
 				document.getElementById("btnNorth").disabled = !canGoNorth;
 				document.getElementById("btnSouth").disabled = !canGoSouth;
