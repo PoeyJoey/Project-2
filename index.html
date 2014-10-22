@@ -166,10 +166,12 @@
 				document.getElementById("btnNorth").disabled = !canGoNorth;
 				document.getElementById("btnSouth").disabled = !canGoSouth;
 				document.getElementById("btnWest").disabled = !canGoWest;
+				document.getElementById("txtCommand").disabled = false;
+				document.getElementById("btnGo").disabled = false;
 			}
 		</script>
 	</head>
-	<body>
+	<body onload="start();">
 		<h2>
 			Spooky Scary Ghost House
 		</h2>
@@ -199,14 +201,34 @@
 			onclick="goDirection('west');"
 			id="btnWest"
 			disabled />
+		<!--
 		<input
 			type="button"
 			value="Start"
 			onclick="start();"
 			id="btnStart" />
+			-->
+		<br>
+		Command:
+		<input	type="text" 
+				id = "txtCommand"
+				name="txtCommand"
+				onkeydown = "if (event.keyCode == 13) goDirection(document.getElementById('txtCommand').value);"
+				disabled />
+				
+		<input	type="button"
+				id = "btnGo"
+				value="Go" 
+				onclick="goDirection(document.getElementById('txtCommand').value);"
+				disabled />
+		<br>
 		<br>
 		Score:
-		<textarea rows="1" cols="2" id="scoreBox">0</textarea>
+		<textarea rows="1" cols="2" id="scoreBox" disabled>0</textarea>
+		<br>
+		<br>
+		<br>
+		<br>
 		<br>
 		<br>
 		<a href="mailto:Joseph.Pupel1@marist.edu">
