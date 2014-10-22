@@ -33,29 +33,30 @@
 			var room2_3 = false;
 			var room3_2 = false;
 			
-			//Player score
+			//Player's variables
 			var score = 0;
+			var error = 0;
 			
 			function goDirection(goDirection){
 				//finds what direction the player went and changes their room coordinates accordingly
 				if (goDirection === "north") {
 					northSouth = northSouth - 1;
-					goDirection = "You went north."
+					goDirection = "You went north.";
 					rooms();
 				} else {
 					if (goDirection === "east") {
 						eastWest = eastWest + 1;
-						goDirection = "You went east."
+						goDirection = "You went east.";
 						rooms();
 					} else {
 						if (goDirection === "south") {
 							northSouth = northSouth + 1;
-							goDirection = "You went south."
+							goDirection = "You went south.";
 							rooms();
 						} else {
 							if (goDirection === "west") {
 								eastWest = eastWest - 1;
-								goDirection = "You went west."
+								goDirection = "You went west.";
 								rooms();
 							} else {
 								//Display this message if the game is broken somehow
@@ -63,6 +64,47 @@
 							}
 						}
 					}
+				}
+				switch(goDirection) {
+					case "north":
+					case "North":
+					case "n":
+					case "N":
+						northSouth = northSouth - 1;
+						goDirection = "You went east.";
+						rooms();
+						break;
+					case "east":
+					case "East":
+					case "e":
+					case "E":
+						eastWest = eastWest + 1;
+						goDirection = "You went east.";
+						rooms();
+						break;
+					case "south":
+					case "South":
+					case "s":
+					case "S":
+						northSouth = northSouth + 1;
+						goDirection = "You went south.";
+						rooms();
+						break;
+					case "west":
+					case "West":
+					case "w":
+					case "W":
+						eastWest = eastWest - 1;
+						goDirection = "You went west.";
+						rooms();
+						break;
+					case default:
+						//Display this message if the game is broken somehow
+						document.getElementById("taMain").value = "That's not a valid direction!";
+						if (error === 5) {
+							
+						}
+						break;
 				}
 				document.getElementById("taMain").value = goDirection + "\n" + document.getElementById("taMain").value;
 				document.getElementById("btnEast").disabled = !canGoEast;
