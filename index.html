@@ -39,39 +39,13 @@
 			
 			function goDirection(goDirection){
 				//finds what direction the player went and changes their room coordinates accordingly
-				/*if (goDirection === "north") {
-					northSouth = northSouth - 1;
-					goDirection = "You went north.";
-					rooms();
-				} else {
-					if (goDirection === "east") {
-						eastWest = eastWest + 1;
-						goDirection = "You went east.";
-						rooms();
-					} else {
-						if (goDirection === "south") {
-							northSouth = northSouth + 1;
-							goDirection = "You went south.";
-							rooms();
-						} else {
-							if (goDirection === "west") {
-								eastWest = eastWest - 1;
-								goDirection = "You went west.";
-								rooms();
-							} else {
-								//Display this message if the game is broken somehow
-								document.getElementById("taMain").value = "How'd you do that??? (You broke free, but you broke the game.)";
-							}
-						}
-					}
-				}*/
 				switch(goDirection) {
 					case "north":
 					case "North":
 					case "n":
 					case "N":
 						northSouth = northSouth - 1;
-						goDirection = "You went east.";
+						goDirection = "You went north.";
 						rooms();
 						break;
 					case "east":
@@ -263,19 +237,19 @@
 				value="Go" 
 				onclick="goDirection(document.getElementById('txtCommand').value);"
 				disabled />
+				
 		<br>
 		<br>
+		
 		Score:
 		<textarea rows="1" cols="2" id="scoreBox" disabled>0</textarea>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
+		
+		<br> <br> <br> <br> <br> <br>
+		
 		<a href="mailto:Joseph.Pupel1@marist.edu">
 			E-mail Me!
 		</a>
+		
 		<p class="footer">
 			<a href="http://validator.w3.org/#validate_by_input">
 				Validate as HTML5
