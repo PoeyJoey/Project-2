@@ -44,33 +44,49 @@
 					case "North":
 					case "n":
 					case "N":
-						northSouth = northSouth - 1;
-						goDirection = "You went north.";
-						rooms();
+						if (canGoNorth){
+							northSouth = northSouth - 1;
+							goDirection = "You went north.";
+							rooms();
+						} else{
+							goDirection = "You can't go that way!";
+						}
 						break;
 					case "east":
 					case "East":
 					case "e":
 					case "E":
-						eastWest = eastWest + 1;
-						goDirection = "You went east.";
-						rooms();
+						if (canGoEast) {
+							eastWest = eastWest + 1;
+							goDirection = "You went east.";
+							rooms();
+						} else {
+							goDirection = "You can't go that way!";
+						}
 						break;
 					case "south":
 					case "South":
 					case "s":
 					case "S":
-						northSouth = northSouth + 1;
-						goDirection = "You went south.";
-						rooms();
+						if (canGoSouth) {
+							northSouth = northSouth + 1;
+							goDirection = "You went south.";
+							rooms();
+						} else {
+							goDirection = "You can't go that way!";
+						}
 						break;
 					case "west":
 					case "West":
 					case "w":
 					case "W":
-						eastWest = eastWest - 1;
-						goDirection = "You went west.";
-						rooms();
+						if (canGoWest) {
+							eastWest = eastWest - 1;
+							goDirection = "You went west.";
+							rooms();
+						} else {
+							goDirection = "You can't go that way!";
+						}
 						break;
 					default:
 						//Display this message if the user typed incorrectly
