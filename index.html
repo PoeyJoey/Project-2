@@ -27,16 +27,18 @@
 			var canGoWest = true;
 			
 			//Check if a player has visited a room
-			var room1_2 = false;
-			var room2_1 = false;
-			var room2_2 = false;
-			var room2_3 = false;
-			var room3_2 = false;
+			var hasVisitedMirrorRoom = false;
+			var hasVisitedMattressRoom = false;
+			var hasVisitedCenterRoom = false;
+			var hasVisitedTrainRoom = false;
+			var hasVisitedCatHallwayRoom = false;
+			var hasVisitedCatRoom = false;
 			
 			//Player's variables
 			var score = 0;
 			var error = 0;
 			
+			//Direction Pathing
 			function goDirection(goDirection){
 			
 				//finds what direction the player went and changes their room coordinates accordingly
@@ -111,41 +113,50 @@
 						break;
 				}
 				
+				//displays the direction the player went. To be moved to updateDisplay() in the future.
 				document.getElementById("taMain").value = goDirection + "\n\n" + document.getElementById("taMain").value;
 				
+				//Disables the directions the player cannot go.
 				btnDisable();
+				
+				document.getElementById("txtCommand").value = "";
 			}
 			
+			//Room Finding
 			function roomfind() {
 				switch (eastWest) {
 					case 1:
 						if (northSouth === 2){
-							room1_2();
+							mirrorRoom();
 						} else {
 							error();
 						}
 						break;
 					case 2:
 						if (northSouth === 1){
-							room2_1();
-						} else if (northSouth === 2) {
-							room2_2();
-						} else if (northSouth === 3) {
-							room2_3();
+							mattressRoom();
 						} else {
-							error();
+							if (northSouth === 2) {
+								centerRoom();
+							} else {
+								if (northSouth === 3) {
+									trainRoom();
+								} else {
+									error();
+								}
+							}
 						}
 						break;
 					case 3:
 						if (northSouth === 2){
-							room3_2();
+							catHallwayRoom();
 						} else {
 							error();
 						}
 						break;
 					case 4:
 						if (northSouth === 2){
-							room4_2();
+							catRoom();
 						} else {
 							error();
 						}
@@ -156,84 +167,92 @@
 				}
 			}
 			
-			function room1_2() {
-				//room to the west of the starting room (room1_2)
+			//Rooms
+			function mirrorRoom() {
+				//room to the west of the starting room (mirrorRoom)
+				var message = "You stand in a room with a door to the east. There is a large mirror on the wall in front of you but it's too dirty to see any reflections.";
 				canGoNorth = false;
 				canGoSouth = false;
 				canGoWest = false;
 				canGoEast = true;
-				if (!room1_2) {
-					room1_2 = true;
-					score += 5
+				if (!hasVisitedMirrorRoom) {
+					hasVisitedMirrorRoom = true;
+					score += 5;
 				}
-				updateDisplay("You stand in a room with a door to the east. There is a large mirror on the wall in front of you but it's too dirty to see any reflections.");
+				updateDisplay(message);
 			}	
 			
-			function room2_1() {
-				//room to the north of the center room (room2_1)
+			function mattressRoom() {
+				//room to the north of the center room (mattressRoom)
+				var message = "You stand in a room with a door to the south. There are mattresses piled up against the walls that block the windows.";
 				canGoNorth = false;
 				canGoSouth = true;
 				canGoWest = false;
 				canGoEast = false;
-				if (!room2_1) {
-					room2_1 = true;
-					score += 5
+				if (!hasVisitedMattressRoom) {
+					hasVisitedMattressRoom = true;
+					score += 5;
 				}
-				updateDisplay("You stand in a room with a door to the south. There are mattresses piled up against the walls that block the windows.");
+				updateDisplay(message);
 			}
 			
-			function room2_2() {
-				//center room (room2_2)
+			function centerRoom() {
+				//center room (centerRoom)
+				var message = "You stand in a room with doors on all sides. There is a large chandelier hanging from the center of the room.";
 				canGoNorth = true;
 				canGoSouth = true;
 				canGoWest = true;
 				canGoEast = true;
-				if (!room2_2) {
-					room2_2 = true;
+				if (!hasVisitedCenterRoom) {
+					hasVisitedCenterRoom = true;
 					score += 5;
 				}
-				updateDisplay("You stand in a room with doors on all sides. There is a large chandelier hanging from the center of the room.");
+				updateDisplay(message);
 			}
 			
-			function room2_3() {
-				//room to the south of the center room (room2_3)
+			function trainRoom() {
+				//room to the south of the center room (trainRoom)
+				var message = "You stand in a room with a door to the north. There is a train set on the ground but no trains can be seen.";
 				canGoNorth = true;
 				canGoSouth = false;
 				canGoWest = false;
 				canGoEast = false;
-				if (!room2_3) {
-					room2_3 = true;
+				if (!hasVisitedTrainRoom) {
+					hasVisitedTrainRoom = true;
 					score += 5;
 				}
-				updateDisplay("You stand in a room with a door to the north. There is a train set on the ground but no trains can be seen.");
+				updateDisplay(message);
 			}
 			
-			function room3_2() {
-				//room to the east of the center room (room3_2)
+			function catHallwayRoom() {
+				//room to the east of the center room (catHallwayRoom)
+				var message = "You stand in a hallway connecting two rooms to the east and the west. There are motivational cat posters all along the walls.";
 				canGoNorth = false;
 				canGoSouth = false;
 				canGoWest = true;
 				canGoEast = true;
-				if (!room3_2){
-					room3_2 = true;
+				if (!hasVisitedCatHallwayRoom) {
+					hasVisitedCatHallwayRoom = true;
 					score += 5;
 				}
-				updateDisplay("You stand in a hallway connecting two rooms to the east and the west. There are motivational cat posters all along the walls.");
+				updateDisplay(message);
 			}
 			
-			function room4_2() {
-				//room to the farthest east. Connected to the cat poster hallway. (room4_2)
+			function catRoom() {
+				//room to the farthest east. Connected to the cat poster hallway. (catRoom)
+				var message = "You stand in a room filled with cats all along the walls. You can't get through the doors that they block to the north and to the south.";
 				canGoNorth = false;
 				canGoSouth = false;
 				canGoWest = true;
 				canGoEast = false;
-				if (!room3_2){
-					room3_2 = true;
+				if (!hasVisitedCatRoom) {
+					hasVisitedCatRoom = true;
 					score += 5;
 				}
-				updateDisplay("You stand in a room filled with cats all along the walls. You can't get through the doors that they block to the north and to the south.");
+				updateDisplay(message);
 			}
 			
+			//Message, Score, and Buttons
 			function updateDisplay(message) {
 				//Adds the text from the room to the message box
 				document.getElementById("taMain").value = message + "\n----------------------------------\n" + document.getElementById("taMain").value;
@@ -253,15 +272,17 @@
 				document.getElementById("btnWest").disabled = !canGoWest;
 			}
 			
+			//Error Finding
 			function error() {
 				//Display this message if the game is broken somehow
-				message = "The cats are here for you. You broke it!";
+				var message = "The cats are here for you. You broke it!";
+				updateDisplay(message);
 			}
 
-
+			//Initialization
 			function start() {
 				//initializes the game
-				rooms();
+				roomfind();
 				document.getElementById("btnStart").disabled = true;
 				document.getElementById("btnEast").disabled = !canGoEast;
 				document.getElementById("btnNorth").disabled = !canGoNorth;
@@ -273,41 +294,51 @@
 		</script>
 	</head>
 	<body>
+	
 		<h2>
 			Spooky Scary Ghost House
 		</h2>
+		
 		<textarea rows="10" cols="40" id="taMain"></textarea>
+		
 		<br>
+		
 		<input
 			type="button"
 			value="North"
 			onclick="goDirection('north');"
 			id="btnNorth"
 			disabled />
+			
 		<input
 			type="button"
 			value="East"
 			onclick="goDirection('east');"
 			id="btnEast"
 			disabled />
+			
 		<input
 			type="button"
 			value="South"
 			onclick="goDirection('south');"
 			id="btnSouth"
 			disabled />
+			
 		<input
 			type="button"
 			value="West"
 			onclick="goDirection('west');"
 			id="btnWest"
 			disabled />
+			
 		<input
 			type="button"
 			value="Start"
 			onclick="start();"
 			id="btnStart" />
+			
 		<br>
+		
 		Command:
 		<input	type="text" 
 				id = "txtCommand"
@@ -321,11 +352,10 @@
 				onclick="goDirection(document.getElementById('txtCommand').value);"
 				disabled />
 				
-		<br>
-		<br>
+		<br><br>
 		
 		Score:
-		<textarea rows="1" cols="2" id="scoreBox" disabled>0</textarea>
+		<textarea rows="1" cols="2" id="scoreBox">0</textarea>
 		
 		<br> <br> <br> <br> <br> <br>
 		
