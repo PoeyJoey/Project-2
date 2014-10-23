@@ -38,8 +38,12 @@
 			var error = 0;
 			
 			function goDirection(goDirection){
+			
 				//finds what direction the player went and changes their room coordinates accordingly
+				
 				switch(goDirection) {
+				
+					//Going North
 					case "north":
 					case "North":
 					case "n":
@@ -47,11 +51,13 @@
 						if (canGoNorth){
 							northSouth = northSouth - 1;
 							goDirection = "You went north.";
-							rooms();
+							roomfind();
 						} else{
 							goDirection = "You can't go that way!";
 						}
 						break;
+						
+					//Going East
 					case "east":
 					case "East":
 					case "e":
@@ -59,11 +65,13 @@
 						if (canGoEast) {
 							eastWest = eastWest + 1;
 							goDirection = "You went east.";
-							rooms();
+							roomfind();
 						} else {
 							goDirection = "You can't go that way!";
 						}
 						break;
+						
+					//Going South
 					case "south":
 					case "South":
 					case "s":
@@ -71,11 +79,13 @@
 						if (canGoSouth) {
 							northSouth = northSouth + 1;
 							goDirection = "You went south.";
-							rooms();
+							roomfind();
 						} else {
 							goDirection = "You can't go that way!";
 						}
 						break;
+						
+					//Going West
 					case "west":
 					case "West":
 					case "w":
@@ -83,11 +93,13 @@
 						if (canGoWest) {
 							eastWest = eastWest - 1;
 							goDirection = "You went west.";
-							rooms();
+							roomfind();
 						} else {
 							goDirection = "You can't go that way!";
 						}
 						break;
+						
+					//Error Direction Message
 					default:
 						//Display this message if the user typed incorrectly
 						if (error === 5) {
@@ -98,95 +110,10 @@
 						}
 						break;
 				}
+				
 				document.getElementById("taMain").value = goDirection + "\n\n" + document.getElementById("taMain").value;
+				
 				btnDisable();
-			}
-			
-			function rooms() {
-				var message = "";
-				if (eastWest === 1) {
-					if (northSouth === 2){
-						//room to the west of the center room (room1_2)
-						message = "You stand in an empty room with a door to the east.";
-						canGoNorth = false;
-						canGoSouth = false;
-						canGoWest = false;
-						canGoEast = true;
-						if (!room1_2) {
-							room1_2 = true;
-							score += 5
-						}
-					} else {
-						//Display this message if the game is broken somehow
-						message = "You float inside a wall. You broke it!";
-					}
-				} else {
-					if (eastWest === 2) {
-						if (northSouth === 1) {
-							//room to the north of the center room (room2_1)
-							message = "You stand in a room with a door to the south. There are mattresses piled up against the walls that block the windows.";
-							canGoNorth = false;
-							canGoSouth = true;
-							canGoWest = false;
-							canGoEast = false;
-							if (!room2_1) {
-								room2_1 = true;
-								score += 5
-							}
-						} else {
-							if (northSouth === 2) {
-								//center room (room2_2)
-								message = "You stand in a room with doors on all sides. There is a large chandelier hanging from the center of the room.";
-								canGoNorth = true;
-								canGoSouth = true;
-								canGoWest = true;
-								canGoEast = true;
-								if (!room2_2) {
-									room2_2 = true;
-									score += 5;
-								}
-							} else {
-								if (northSouth === 3) {
-									//room to the south of the center room (room2_3)
-									message = "You stand in a room with a door to the north. There is a train set on the ground but no trains can be seen.";
-									canGoNorth = true;
-									canGoSouth = false;
-									canGoWest = false;
-									canGoEast = false;
-									if (!room2_3) {
-										room2_3 = true;
-										score += 5;
-									}
-								} else {
-									//Display this message if the game is broken somehow
-									message = "You float inside a wall. You broke it!";
-								}
-							}
-						}
-					} else {
-						if (eastWest === 3) {
-							if (northSouth === 2) {
-								//room to the east of the center room (room3_2)
-								message = "You stand in a room with a door to the west. There is a large mirror on the wall in front of you but it's too dirty to see any reflections.";
-								canGoNorth = false;
-								canGoSouth = false;
-								canGoWest = true;
-								canGoEast = false;
-								if (!room3_2){
-									room3_2 = true;
-									score += 5;
-								}
-							} else {
-								//Display this message if the game is broken somehow
-								message = "You float inside a wall. You broke it!";
-							}
-						}
-					}
-				}
-				//Adds the text from the room to the message box
-				document.getElementById("taMain").value = message + "\n----------------------------------\n" + document.getElementById("taMain").value;
-				//Changes the score
-				document.getElementById("scoreBox").value = score;
 			}
 			
 			function roomfind() {
