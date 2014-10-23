@@ -99,10 +99,7 @@
 						break;
 				}
 				document.getElementById("taMain").value = goDirection + "\n\n" + document.getElementById("taMain").value;
-				document.getElementById("btnEast").disabled = !canGoEast;
-				document.getElementById("btnNorth").disabled = !canGoNorth;
-				document.getElementById("btnSouth").disabled = !canGoSouth;
-				document.getElementById("btnWest").disabled = !canGoWest;
+				btnDisable();
 			}
 			
 			function rooms() {
@@ -242,7 +239,7 @@
 					room1_2 = true;
 					score += 5
 				}
-				message("You stand in an empty room with a door to the east.");
+				updateDisplay("You stand in a room with a door to the east. There is a large mirror on the wall in front of you but it's too dirty to see any reflections.");
 			}	
 			
 			function room2_1() {
@@ -255,27 +252,83 @@
 					room2_1 = true;
 					score += 5
 				}
-				message("You stand in a room with a door to the south. There are mattresses piled up against the walls that block the windows.");
+				updateDisplay("You stand in a room with a door to the south. There are mattresses piled up against the walls that block the windows.");
 			}
 			
 			function room2_2() {
-				
-				message();
+				//center room (room2_2)
+				canGoNorth = true;
+				canGoSouth = true;
+				canGoWest = true;
+				canGoEast = true;
+				if (!room2_2) {
+					room2_2 = true;
+					score += 5;
+				}
+				updateDisplay("You stand in a room with doors on all sides. There is a large chandelier hanging from the center of the room.");
 			}
 			
 			function room2_3() {
-				
-				message();
+				//room to the south of the center room (room2_3)
+				canGoNorth = true;
+				canGoSouth = false;
+				canGoWest = false;
+				canGoEast = false;
+				if (!room2_3) {
+					room2_3 = true;
+					score += 5;
+				}
+				updateDisplay("You stand in a room with a door to the north. There is a train set on the ground but no trains can be seen.");
 			}
 			
 			function room3_2() {
-				
-				message();
+				//room to the east of the center room (room3_2)
+				canGoNorth = false;
+				canGoSouth = false;
+				canGoWest = true;
+				canGoEast = true;
+				if (!room3_2){
+					room3_2 = true;
+					score += 5;
+				}
+				updateDisplay("You stand in a hallway connecting two rooms to the east and the west. There are motivational cat posters all along the walls.");
 			}
 			
 			function room4_2() {
-				
-				message();
+				//room to the farthest east. Connected to the cat poster hallway. (room4_2)
+				canGoNorth = false;
+				canGoSouth = false;
+				canGoWest = true;
+				canGoEast = false;
+				if (!room3_2){
+					room3_2 = true;
+					score += 5;
+				}
+				updateDisplay("You stand in a room filled with cats all along the walls. You can't get through the doors that they block to the north and to the south.");
+			}
+			
+			function updateDisplay(message) {
+				//Adds the text from the room to the message box
+				document.getElementById("taMain").value = message + "\n----------------------------------\n" + document.getElementById("taMain").value;
+				updateScore();
+			}
+			
+			function updateScore() {
+				//Changes the score
+				document.getElementById("scoreBox").value = score;
+			}
+			
+			function btnDisable() {
+				//disables the buttons
+				document.getElementById("btnEast").disabled = !canGoEast;
+				document.getElementById("btnNorth").disabled = !canGoNorth;
+				document.getElementById("btnSouth").disabled = !canGoSouth;
+				document.getElementById("btnWest").disabled = !canGoWest;
+			}
+			
+			function error() {
+				//Display this message if the game is broken somehow
+				message = "The cats are here for you. You broke it!";
 			}
 
 
