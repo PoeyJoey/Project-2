@@ -192,6 +192,93 @@
 				document.getElementById("scoreBox").value = score;
 			}
 			
+			function roomfind() {
+				switch (eastWest) {
+					case 1:
+						if (northSouth === 2){
+							room1_2();
+						} else {
+							error();
+						}
+						break;
+					case 2:
+						if (northSouth === 1){
+							room2_1();
+						} else if (northSouth === 2) {
+							room2_2();
+						} else if (northSouth === 3) {
+							room2_3();
+						} else {
+							error();
+						}
+						break;
+					case 3:
+						if (northSouth === 2){
+							room3_2();
+						} else {
+							error();
+						}
+						break;
+					case 4:
+						if (northSouth === 2){
+							room4_2();
+						} else {
+							error();
+						}
+						break;
+					default:
+						error();
+						break;
+				}
+			}
+			
+			function room1_2() {
+				//room to the west of the starting room (room1_2)
+				canGoNorth = false;
+				canGoSouth = false;
+				canGoWest = false;
+				canGoEast = true;
+				if (!room1_2) {
+					room1_2 = true;
+					score += 5
+				}
+				message("You stand in an empty room with a door to the east.");
+			}	
+			
+			function room2_1() {
+				//room to the north of the center room (room2_1)
+				canGoNorth = false;
+				canGoSouth = true;
+				canGoWest = false;
+				canGoEast = false;
+				if (!room2_1) {
+					room2_1 = true;
+					score += 5
+				}
+				message("You stand in a room with a door to the south. There are mattresses piled up against the walls that block the windows.");
+			}
+			
+			function room2_2() {
+				
+				message();
+			}
+			
+			function room2_3() {
+				
+				message();
+			}
+			
+			function room3_2() {
+				
+				message();
+			}
+			
+			function room4_2() {
+				
+				message();
+			}
+
+
 			function start() {
 				//initializes the game
 				rooms();
